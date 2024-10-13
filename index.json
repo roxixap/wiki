@@ -18,11 +18,6 @@
                 "description": "Инструкция по изменению версии Java на сервере в панели."
             },
             {
-                "name": "Как создать сервер Minecraft?",
-                "path": "guides/create-server",
-                "description": "Краткая инструкция по созданию сервера Minecraft Java Edition."
-            },
-            {
                 "name": "Изменение версии сервера",
                 "path": "guides/change-version",
                 "description": "Инструкция по изменению версии Minecraft на сервере."
