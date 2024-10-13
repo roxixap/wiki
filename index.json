@@ -73,11 +73,6 @@
                 "description": "Инструкция по оптимизация Minecraft сервера для комфортной игры на superhub.host."
             },
             {
-                "name": "Изменить команду запуска",
-                "path": "guides/startup-command",
-                "description": "Инструкция по изменении команды запуска на superhub.host."
-            },
-            {
                 "name": "Загрузка собственной сборки",
                 "path": "guides/upload-build",
                 "description": "Инструкция по загрузке собственной сборки на superhub.host."
