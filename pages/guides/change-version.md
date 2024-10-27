@@ -1,7 +1,11 @@
 ---
-title: Смена версии сервера
-description: Инструкция по изменению версии Minecraft на сервере.
+title: Как создать сервер Minecraft?
+description: Инструкция по созданию сервера Minecraft.
 ---
+
+## Как создать сервер?
+Пополните баланс на нужнуу сумму и потом необходимо арендовать сервер или же купить его на [странице](https://superhub.host/order).
+
 
 После оплаты заказа ваш сервер автоматически устанавливается со стандартными параметрами.
 
@@ -39,11 +43,6 @@ description: Инструкция по изменению версии Minecraft
 Бывают случаи, когда клиенты сначала пытаются запустить их сервер с устанавливаемой по умолчанию версией, а потом устанавливают более старую. В таком случае, да и в целом, когда устанавливается более старая версия, возникает следующая ошибка:
 ```log
 [17:38:24 WARN]: java.lang.RuntimeException: Server attempted to load chunk saved with newer version of minecraft! 2586 > 1343
-[17:38:24 WARN]:        at net.minecraft.server.v1_12_R1.ChunkRegionLoader.a(ChunkRegionLoader.java:104)
-[17:38:24 WARN]:        at net.minecraft.server.v1_12_R1.ChunkRegionLoader.loadChunk(ChunkRegionLoader.java:83)
-[17:38:24 WARN]:        at org.bukkit.craftbukkit.v1_12_R1.chunkio.ChunkIOProvider.callStage1(ChunkIOProvider.java:23)
-[17:38:24 WARN]:        at org.bukkit.craftbukkit.v1_12_R1.chunkio.ChunkIOProvider.callStage1(ChunkIOProvider.java:16)
-[17:38:24 WARN]:        at org.bukkit.craftbukkit.v1_12_R1.util.AsynchronousExecutor.skipQueue(AsynchronousExecutor.java:336)
 ```
 
 Связана эта ошибка с тем, что сервер не может загрузить мир, сохранённый с более новой версией игры. Самое простое решение в таком случае - удалить мир, чтобы сервер сгенерировал его заново.
@@ -52,16 +51,23 @@ description: Инструкция по изменению версии Minecraft
 Если Вам нужен Forge сервер, то самый идеальный вариант - купить этот сервер сразу. В случае установки Forge вместо Paper, велика вероятность, что Вы столкнётесь с подобной ошибкой:
 ```log
 A problem occurred running the Server launcher.java.lang.reflect.InvocationTargetException
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-        at net.minecraftforge.fml.relauncher.ServerLaunchWrapper.run(ServerLaunchWrapper.java:70)
-        at net.minecraftforge.fml.relauncher.ServerLaunchWrapper.main(ServerLaunchWrapper.java:34)
-Caused by: java.lang.ClassCastException: class jdk.internal.loader.ClassLoaders$AppClassLoader cannot be cast to class java.net.URLClassLoader (jdk.internal.loader.ClassLoaders$AppClassLoader and java.net.URLClassLoader are in module java.base of loader 'bootstrap')
-        at net.minecraft.launchwrapper.Launch.<init>(Launch.java:34)
-        at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
-        ... 6 more
 ```
 
 Дело в том, что Forge не поддерживает Java 9 и выше, в то время как для большей части серверов стандартной является Java 11. Чтобы решить проблему, достаточно изменить версию Java. Для этого перейдите во вкладку "Запуск" панели и выберите Docker образ `quay.io/pterodactyl/core:java`. Если у Вас нет возможности изменить образ, обратитесь в техническую поддержку. Подробнее об изменении версии Java можно узнать [здесь](/guides/change-java).
+
+## Загрузка собственной сборки
+
+Если вы хотите загрузить собственную сборку Minecraft сервера, вы должны выполнить следующие действия:
+
+1. Войти во встроенный FTP-клиент панели или любой другой [FTP-клиент](/guides/use-sftp)
+2. Загрузить полностью все файлы сборки в корневую папку
+3. (Если у вас Forge 1.17+) Скопируйте файл `libraries/net/minecraftforge/forge/(должна быть единственная папка)/unix_args.txt` в папку с ядром и пропустите последний шаг.
+4. Переименовать исполнительный jar-файл (ядро) сборки в `server.jar`
+
+!> Необходимо соблюсти регистр всех букв - должны быть строчными
+
+Готово! Теперь можно запустить сервер.
+
+> Перенося сборку с домашнего компьютера, имейте в виду, что некоторые плагины привязываются к адресам расположения файлов и некорректно воспринимают русские буквы.
+
+!> После загрузки сборки на сервер, вам следует проверить все адреса файлов и кодировку.
